@@ -1,4 +1,4 @@
-const {product, product_brand, sequelize} = require('../models')
+const {sequelize} = require('../models')
 
 class Controller{
     static async getNilaiByArea(req, res){
