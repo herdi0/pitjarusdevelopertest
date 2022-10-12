@@ -1,23 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import Tabledata from './components/Tabledata'
+import BarChart from './components/BarChart'
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [byArea, setByArea] = useState([])
+  const [byBrand, setByBrand] = useState([])
+
+  useEffect(()=>{
+    fetch("http://localhost:3000/nilaiByArea")
+    .then((res) => res.json())
+    .then((result) => {
+      setByArea(result)
+    });
+
+    fetch("http://localhost:3000/nilaiByBrand")
+    .then((res) => res.json())
+    .then((result) => {
+      setByBrand(result)
+    });
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BarChart byArea={byArea}/>
+      <Tabledata byBrand={byBrand} />
     </div>
   );
 }
